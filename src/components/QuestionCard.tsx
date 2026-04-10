@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { QuizQuestion } from '../types/quiz';
 import { ProgressBar } from './ProgressBar';
 
@@ -22,9 +24,32 @@ export function QuestionCard({
   isLocked,
   canGoPrevious,
 }: QuestionCardProps) {
+  const [hoveredOptionIndex, setHoveredOptionIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setHoveredOptionIndex(null);
+  }, [question.id]);
+
   const handleOptionClick = (optionIndex: number, button: HTMLButtonElement) => {
     button.blur();
+    setHoveredOptionIndex(null);
     onAnswer(optionIndex);
+  };
+
+  const handlePointerEnter = (event: ReactPointerEvent<HTMLButtonElement>, optionIndex: number) => {
+    if (event.pointerType !== 'mouse' || isLocked) {
+      return;
+    }
+
+    setHoveredOptionIndex(optionIndex);
+  };
+
+  const handlePointerLeave = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType !== 'mouse') {
+      return;
+    }
+
+    setHoveredOptionIndex(null);
   };
 
   return (
@@ -51,16 +76,19 @@ export function QuestionCard({
       <div className="mt-8 space-y-3">
         {question.options.map((option, index) => {
           const isSelected = selectedOption === index;
+          const isHovered = hoveredOptionIndex === index;
 
           return (
             <button
               key={option.id}
               type="button"
               onClick={(event) => handleOptionClick(index, event.currentTarget)}
+              onPointerEnter={(event) => handlePointerEnter(event, index)}
+              onPointerLeave={handlePointerLeave}
               disabled={isLocked}
               className={[
                 'option-card',
-                isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
+                isSelected || isHovered ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
                 isLocked ? 'cursor-wait' : '',
               ].join(' ')}
             >

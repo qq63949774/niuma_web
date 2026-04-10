@@ -58,12 +58,5 @@
     .action-button:hover {
       transform: translateY(-2px);
     }
-
-    .option-card:hover {
-      transform: translateY(-2px);
-      border-color: rgb(0 0 0 / 1);
-      background: rgb(0 0 0 / 1);
-      color: rgb(255 255 255 / 1);
-    }
   }
 }
