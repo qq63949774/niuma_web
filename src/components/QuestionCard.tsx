@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
-import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { QuizQuestion } from '../types/quiz';
 import { ProgressBar } from './ProgressBar';
 
@@ -25,12 +23,6 @@ export function QuestionCard({
   isLocked,
   canGoPrevious,
 }: QuestionCardProps) {
-  const [hoveredOptionIndex, setHoveredOptionIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    setHoveredOptionIndex(null);
-  }, [question.id, isLocked]);
-
   const handleOptionSelect = (optionIndex: number) => {
     if (isLocked) {
       return;
@@ -40,24 +32,7 @@ export function QuestionCard({
       document.activeElement.blur();
     }
 
-    setHoveredOptionIndex(null);
     onAnswer(optionIndex);
-  };
-
-  const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>, optionIndex: number) => {
-    if (event.pointerType !== 'mouse' || isLocked) {
-      return;
-    }
-
-    setHoveredOptionIndex(optionIndex);
-  };
-
-  const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== 'mouse') {
-      return;
-    }
-
-    setHoveredOptionIndex(null);
   };
 
   const handleOptionKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>, optionIndex: number) => {
@@ -95,7 +70,6 @@ export function QuestionCard({
       <div className="mt-8 space-y-3">
         {question.options.map((option, index) => {
           const isSelected = selectedOption === index;
-          const isHovered = hoveredOptionIndex === index;
 
           return (
             <div
@@ -103,13 +77,11 @@ export function QuestionCard({
               role="button"
               tabIndex={isLocked ? -1 : 0}
               aria-disabled={isLocked}
-              onPointerEnter={(event) => handlePointerEnter(event, index)}
-              onPointerLeave={handlePointerLeave}
               onPointerUp={() => handleOptionSelect(index)}
               onKeyDown={(event) => handleOptionKeyDown(event, index)}
               className={[
                 'option-card',
-                isSelected || isHovered ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
+                isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
                 isLocked ? 'pointer-events-none cursor-wait opacity-95' : 'cursor-pointer',
               ].join(' ')}
             >
