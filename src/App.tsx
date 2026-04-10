@@ -135,7 +135,6 @@ function App() {
 
         {screen === 'quiz' ? (
           <QuestionCard
-            key={`${quizQuestions[currentQuestionIndex].id}-${isQuestionVisible ? 'ready' : 'transition'}`}
             question={quizQuestions[currentQuestionIndex]}
             currentQuestion={currentQuestionIndex + 1}
             totalQuestions={quizQuestions.length}

@@ -51,7 +51,7 @@ export function QuestionCard({
   const progressQuestion = isTransitioning ? upcomingQuestion : currentQuestion;
 
   return (
-    <section className="panel relative min-h-[540px] sm:min-h-[520px]">
+    <section className="panel relative flex min-h-[760px] flex-col sm:min-h-[740px]">
       {isLocked ? <div className="absolute inset-0 z-10" aria-hidden="true" /> : null}
 
       <div className="mb-6 flex items-center justify-between">
@@ -68,12 +68,12 @@ export function QuestionCard({
 
       <ProgressBar current={progressQuestion} total={totalQuestions} />
 
-      <div className="mt-6 space-y-2">
+      <div className="mt-6 min-h-[150px] space-y-2 sm:min-h-[164px]">
         <p className="font-display text-sm uppercase tracking-[0.35em] text-black/40">
           {isTransitioning ? 'Syncing' : 'Question'}
         </p>
         {isTransitioning ? (
-          <div className="space-y-3">
+          <div className="space-y-3 pt-1">
             <div className="question-transition-line h-10 w-[88%] rounded-[18px]" />
             <div className="question-transition-line h-10 w-[64%] rounded-[18px]" />
           </div>
@@ -82,12 +82,12 @@ export function QuestionCard({
         )}
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div className="mt-8 flex-1 space-y-3">
         {isTransitioning
           ? Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={`transition-${index}`}
-                className="question-transition-option flex items-center gap-4 rounded-[28px] border border-black/8 bg-white/72 px-5 py-5"
+                className="question-transition-option flex min-h-[112px] items-center gap-4 rounded-[28px] border border-black/8 bg-white/72 px-5 py-5"
               >
                 <div className="question-transition-badge flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/10 text-sm font-semibold text-black/38">
                   {String.fromCharCode(65 + index)}
@@ -110,7 +110,7 @@ export function QuestionCard({
                   onPointerUp={() => handleOptionSelect(index)}
                   onKeyDown={(event) => handleOptionKeyDown(event, index)}
                   className={[
-                    'option-card',
+                    'option-card min-h-[112px]',
                     isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
                     isLocked ? 'pointer-events-none cursor-wait opacity-95' : 'cursor-pointer',
                   ].join(' ')}
