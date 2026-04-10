@@ -12,6 +12,7 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array.from({ length: quizQuestions.length }, () => null));
   const [isAdvancing, setIsAdvancing] = useState(false);
+  const [isQuestionVisible, setIsQuestionVisible] = useState(true);
   const advanceTimerRef = useRef<number | null>(null);
   const advanceLockRef = useRef(false);
 
@@ -30,6 +31,7 @@ function App() {
     setScreen('quiz');
     setCurrentQuestionIndex(0);
     setIsAdvancing(false);
+    setIsQuestionVisible(true);
     advanceLockRef.current = false;
   };
 
@@ -37,6 +39,7 @@ function App() {
     setAnswers(Array.from({ length: quizQuestions.length }, () => null));
     setCurrentQuestionIndex(0);
     setIsAdvancing(false);
+    setIsQuestionVisible(true);
     advanceLockRef.current = false;
     setScreen('quiz');
   };
@@ -52,19 +55,24 @@ function App() {
     nextAnswers[currentQuestionIndex] = optionIndex;
     setAnswers(nextAnswers);
     setIsAdvancing(true);
+    setIsQuestionVisible(false);
 
     advanceTimerRef.current = window.setTimeout(() => {
       if (currentQuestionIndex === quizQuestions.length - 1) {
         setScreen('result');
         setIsAdvancing(false);
+        setIsQuestionVisible(true);
         advanceLockRef.current = false;
         return;
       }
 
       setCurrentQuestionIndex((value) => value + 1);
-      setIsAdvancing(false);
-      advanceLockRef.current = false;
-    }, 120);
+      window.setTimeout(() => {
+        setIsQuestionVisible(true);
+        setIsAdvancing(false);
+        advanceLockRef.current = false;
+      }, 50);
+    }, 90);
   };
 
   const handlePrevious = () => {
@@ -84,17 +92,21 @@ function App() {
         {screen === 'home' ? <HomeScreen onStart={startQuiz} /> : null}
 
         {screen === 'quiz' ? (
-          <QuestionCard
-            key={quizQuestions[currentQuestionIndex].id}
-            question={quizQuestions[currentQuestionIndex]}
-            currentQuestion={currentQuestionIndex + 1}
-            totalQuestions={quizQuestions.length}
-            selectedOption={answers[currentQuestionIndex]}
-            onAnswer={handleAnswer}
-            onPrevious={handlePrevious}
-            isLocked={isAdvancing}
-            canGoPrevious={currentQuestionIndex > 0}
-          />
+          isQuestionVisible ? (
+            <QuestionCard
+              key={quizQuestions[currentQuestionIndex].id}
+              question={quizQuestions[currentQuestionIndex]}
+              currentQuestion={currentQuestionIndex + 1}
+              totalQuestions={quizQuestions.length}
+              selectedOption={answers[currentQuestionIndex]}
+              onAnswer={handleAnswer}
+              onPrevious={handlePrevious}
+              isLocked={isAdvancing}
+              canGoPrevious={currentQuestionIndex > 0}
+            />
+          ) : (
+            <section className="panel min-h-[540px] sm:min-h-[520px]" aria-hidden="true" />
+          )
         ) : null}
 
         {screen === 'result' ? <ResultCard result={resultType} scoreBoard={scoreBoard} onRestart={restartQuiz} /> : null}
