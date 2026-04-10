@@ -68,7 +68,7 @@ export function QuestionCard({
 
       <ProgressBar current={progressQuestion} total={totalQuestions} />
 
-      <div className="mt-6 min-h-[150px] space-y-2 sm:min-h-[164px]">
+      <div className="mt-6 min-h-[108px] space-y-2 sm:min-h-[124px]">
         <p className="font-display text-sm uppercase tracking-[0.35em] text-black/40">
           {isTransitioning ? 'Syncing' : 'Question'}
         </p>
@@ -82,7 +82,7 @@ export function QuestionCard({
         )}
       </div>
 
-      <div className="mt-8 flex-1 space-y-3">
+      <div className="mt-4 flex-1 space-y-3">
         {isTransitioning
           ? Array.from({ length: 4 }).map((_, index) => (
               <div
