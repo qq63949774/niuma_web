@@ -29,7 +29,7 @@ export function QuestionCard({
 
   useEffect(() => {
     setHoveredOptionIndex(null);
-  }, [question.id]);
+  }, [question.id, isLocked]);
 
   const handleOptionSelect = (optionIndex: number) => {
     if (isLocked) {
@@ -110,7 +110,7 @@ export function QuestionCard({
               className={[
                 'option-card',
                 isSelected || isHovered ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
-                isLocked ? 'pointer-events-none cursor-wait' : 'cursor-pointer',
+                isLocked ? 'pointer-events-none cursor-wait opacity-95' : 'cursor-pointer',
               ].join(' ')}
             >
               <div className="flex items-start gap-3">

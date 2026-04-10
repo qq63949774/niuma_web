@@ -9,14 +9,17 @@ type Screen = 'home' | 'quiz' | 'result';
 
 function App() {
   const selectionFeedbackDelay = 140;
-  const nextQuestionDelay = 380;
+  const nextQuestionDelay = 520;
+  const questionRevealDelay = 220;
   const [screen, setScreen] = useState<Screen>('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array.from({ length: quizQuestions.length }, () => null));
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [isQuestionVisible, setIsQuestionVisible] = useState(true);
+  const [isQuestionInteractive, setIsQuestionInteractive] = useState(true);
   const advanceTimerRef = useRef<number | null>(null);
   const hideQuestionTimerRef = useRef<number | null>(null);
+  const revealQuestionTimerRef = useRef<number | null>(null);
   const advanceLockRef = useRef(false);
 
   const scoreBoard = getScoreBoard(quizQuestions, answers);
@@ -31,6 +34,10 @@ function App() {
       if (hideQuestionTimerRef.current !== null) {
         window.clearTimeout(hideQuestionTimerRef.current);
       }
+
+      if (revealQuestionTimerRef.current !== null) {
+        window.clearTimeout(revealQuestionTimerRef.current);
+      }
     };
   }, []);
 
@@ -39,6 +46,7 @@ function App() {
     setCurrentQuestionIndex(0);
     setIsAdvancing(false);
     setIsQuestionVisible(true);
+    setIsQuestionInteractive(true);
     advanceLockRef.current = false;
   };
 
@@ -47,6 +55,7 @@ function App() {
     setCurrentQuestionIndex(0);
     setIsAdvancing(false);
     setIsQuestionVisible(true);
+    setIsQuestionInteractive(true);
     advanceLockRef.current = false;
     setScreen('quiz');
   };
@@ -66,10 +75,15 @@ function App() {
       window.clearTimeout(hideQuestionTimerRef.current);
     }
 
+    if (revealQuestionTimerRef.current !== null) {
+      window.clearTimeout(revealQuestionTimerRef.current);
+    }
+
     const nextAnswers = [...answers];
     nextAnswers[currentQuestionIndex] = optionIndex;
     setAnswers(nextAnswers);
     setIsAdvancing(true);
+    setIsQuestionInteractive(false);
 
     hideQuestionTimerRef.current = window.setTimeout(() => {
       setIsQuestionVisible(false);
@@ -80,6 +94,7 @@ function App() {
         setScreen('result');
         setIsAdvancing(false);
         setIsQuestionVisible(true);
+        setIsQuestionInteractive(true);
         advanceLockRef.current = false;
         hideQuestionTimerRef.current = null;
         advanceTimerRef.current = null;
@@ -88,8 +103,15 @@ function App() {
 
       setCurrentQuestionIndex((value) => value + 1);
       setIsQuestionVisible(true);
-      setIsAdvancing(false);
-      advanceLockRef.current = false;
+      setIsQuestionInteractive(false);
+
+      revealQuestionTimerRef.current = window.setTimeout(() => {
+        setIsQuestionInteractive(true);
+        setIsAdvancing(false);
+        advanceLockRef.current = false;
+        revealQuestionTimerRef.current = null;
+      }, questionRevealDelay);
+
       hideQuestionTimerRef.current = null;
       advanceTimerRef.current = null;
     }, nextQuestionDelay);
@@ -121,7 +143,7 @@ function App() {
               selectedOption={answers[currentQuestionIndex]}
               onAnswer={handleAnswer}
               onPrevious={handlePrevious}
-              isLocked={isAdvancing}
+              isLocked={isAdvancing || !isQuestionInteractive}
               canGoPrevious={currentQuestionIndex > 0}
             />
           ) : (
