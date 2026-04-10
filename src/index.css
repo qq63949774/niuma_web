@@ -28,6 +28,11 @@
   button {
     font: inherit;
   }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer components {
@@ -41,5 +46,24 @@
 
   .action-button {
     @apply inline-flex items-center justify-center rounded-2xl border border-black/10 px-4 py-3 text-sm font-semibold transition duration-200 ease-out;
+  }
+
+  .option-card {
+    @apply w-full rounded-3xl border px-4 py-4 text-left transition duration-200 ease-out;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  @layer components {
+    .action-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .option-card:hover {
+      transform: translateY(-2px);
+      border-color: rgb(0 0 0 / 1);
+      background: rgb(0 0 0 / 1);
+      color: rgb(255 255 255 / 1);
+    }
   }
 }

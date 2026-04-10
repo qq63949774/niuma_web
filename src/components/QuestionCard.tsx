@@ -51,8 +51,7 @@ export function QuestionCard({
               type="button"
               onClick={() => onAnswer(index)}
               className={[
-                'w-full rounded-3xl border px-4 py-4 text-left transition duration-200 ease-out',
-                'hover:-translate-y-0.5 hover:border-black hover:bg-black hover:text-white',
+                'option-card',
                 isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
               ].join(' ')}
             >
