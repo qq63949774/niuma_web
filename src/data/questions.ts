@@ -8,7 +8,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q1a',
         text: '默默打开待办，心想冲就冲，反正命硬。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q1b',
@@ -23,7 +23,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q1d',
         text: '先把会议窗口缩小，看看中午吃什么续命。',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
@@ -34,7 +34,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q2a',
         text: '回一个“收到”，并给自己泡一杯最苦的咖啡。',
-        scores: { endure: 2, internal: 2 },
+        scores: { endure: 3, internal: 1 },
       },
       {
         id: 'q2b',
@@ -60,7 +60,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q3a',
         text: '继续改，毕竟我已经和需求共生了。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q3b',
@@ -70,12 +70,12 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q3c',
         text: '开始追问“为什么改”和“谁拍的板”。',
-        scores: { rebel: 2, endure: 1, internal: 1 },
+        scores: { rebel: 3, endure: 1 },
       },
       {
         id: 'q3d',
         text: '先改最能看见的地方，剩下的交给未来的自己。',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
@@ -101,7 +101,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q4d',
         text: '“先别急，我切回去看看刚才那个表格。”',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
@@ -138,7 +138,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q6a',
         text: '接住，顺便把细节也补完。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q6b',
@@ -148,7 +148,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q6c',
         text: '礼貌反问：为什么这个“顺手”总顺到我这？',
-        scores: { rebel: 3, internal: 1 },
+        scores: { rebel: 3, endure: 1 },
       },
       {
         id: 'q6d',
@@ -164,7 +164,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q7a',
         text: '能拿就拿，拿不到也得把活干完。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q7b',
@@ -179,7 +179,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q7d',
         text: '绩效像天气，看看就行，别太走心。',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
@@ -200,7 +200,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q8c',
         text: '反问：成长性是指能力，还是工时？',
-        scores: { rebel: 3, internal: 1 },
+        scores: { rebel: 3, endure: 1 },
       },
       {
         id: 'q8d',
@@ -268,7 +268,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q11a',
         text: '续上命了，今天还能再扛两个需求。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q11b',
@@ -294,7 +294,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q12a',
         text: '先接住，再悄悄给今晚的自己点一根电子蜡烛。',
-        scores: { endure: 3, internal: 1 },
+        scores: { endure: 3 },
       },
       {
         id: 'q12b',
@@ -309,7 +309,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q12d',
         text: '先做个能交差的版本，细节留给下一个平行宇宙。',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
@@ -356,7 +356,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q14c',
         text: '积极的定义是谁定的，工时还是情绪表演？',
-        scores: { rebel: 3, internal: 1 },
+        scores: { rebel: 3, endure: 1 },
       },
       {
         id: 'q14d',
@@ -408,7 +408,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q16c',
         text: '借去接咖啡的路上，顺便和制度进行一场精神辩论。',
-        scores: { rebel: 3, internal: 1 },
+        scores: { rebel: 4 },
       },
       {
         id: 'q16d',
@@ -460,7 +460,7 @@ export const quizQuestions: QuizQuestion[] = [
       {
         id: 'q18c',
         text: '凝聚力能不能先体现在准点下班上？',
-        scores: { rebel: 3, internal: 1 },
+        scores: { rebel: 3, endure: 1 },
       },
       {
         id: 'q18d',
@@ -485,13 +485,13 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         id: 'q19c',
-        text: '冰博克，贵点没事，至少别让我活得太标准化。',
+        text: '生椰拿铁，贵点没事，至少别让我活得太标准化。',
         scores: { rebel: 3, slack: 1 },
       },
       {
         id: 'q19d',
         text: '白水，低调、安全、方便随时离开工位透口气。',
-        scores: { slack: 3, internal: 1 },
+        scores: { slack: 4 },
       },
     ],
   },
