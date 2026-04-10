@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color: #131313;
+    background: #f7f5ef;
+    font-family: "IBM Plex Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+  }
+
+  button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply animate-rise rounded-[28px] border border-black/10 bg-white/80 p-5 shadow-panel backdrop-blur sm:p-7;
+  }
+
+  .chip {
+    @apply rounded-full border border-black/10 bg-black/5 px-3 py-1 text-xs font-medium tracking-wide text-black/70;
+  }
+
+  .action-button {
+    @apply inline-flex items-center justify-center rounded-2xl border border-black/10 px-4 py-3 text-sm font-semibold transition duration-200 ease-out;
+  }
+}
