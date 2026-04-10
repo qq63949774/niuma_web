@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { QuizQuestion } from '../types/quiz';
 import { ProgressBar } from './ProgressBar';
@@ -30,13 +31,20 @@ export function QuestionCard({
     setHoveredOptionIndex(null);
   }, [question.id]);
 
-  const handleOptionClick = (optionIndex: number, button: HTMLButtonElement) => {
-    button.blur();
+  const handleOptionSelect = (optionIndex: number) => {
+    if (isLocked) {
+      return;
+    }
+
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
     setHoveredOptionIndex(null);
     onAnswer(optionIndex);
   };
 
-  const handlePointerEnter = (event: ReactPointerEvent<HTMLButtonElement>, optionIndex: number) => {
+  const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>, optionIndex: number) => {
     if (event.pointerType !== 'mouse' || isLocked) {
       return;
     }
@@ -44,12 +52,21 @@ export function QuestionCard({
     setHoveredOptionIndex(optionIndex);
   };
 
-  const handlePointerLeave = (event: ReactPointerEvent<HTMLButtonElement>) => {
+  const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== 'mouse') {
       return;
     }
 
     setHoveredOptionIndex(null);
+  };
+
+  const handleOptionKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>, optionIndex: number) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    handleOptionSelect(optionIndex);
   };
 
   return (
@@ -79,17 +96,19 @@ export function QuestionCard({
           const isHovered = hoveredOptionIndex === index;
 
           return (
-            <button
+            <div
               key={option.id}
-              type="button"
-              onClick={(event) => handleOptionClick(index, event.currentTarget)}
+              role="button"
+              tabIndex={isLocked ? -1 : 0}
+              aria-disabled={isLocked}
               onPointerEnter={(event) => handlePointerEnter(event, index)}
               onPointerLeave={handlePointerLeave}
-              disabled={isLocked}
+              onPointerUp={() => handleOptionSelect(index)}
+              onKeyDown={(event) => handleOptionKeyDown(event, index)}
               className={[
                 'option-card',
                 isSelected || isHovered ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
-                isLocked ? 'cursor-wait' : '',
+                isLocked ? 'pointer-events-none cursor-wait' : 'cursor-pointer',
               ].join(' ')}
             >
               <div className="flex items-start gap-3">
@@ -98,7 +117,7 @@ export function QuestionCard({
                 </span>
                 <span className="text-sm leading-6 sm:text-base">{option.text}</span>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>
