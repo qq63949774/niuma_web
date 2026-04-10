@@ -20,6 +20,11 @@ export function QuestionCard({
   onPrevious,
   canGoPrevious,
 }: QuestionCardProps) {
+  const handleOptionClick = (optionIndex: number, button: HTMLButtonElement) => {
+    button.blur();
+    onAnswer(optionIndex);
+  };
+
   return (
     <section className="panel">
       <div className="mb-6 flex items-center justify-between">
@@ -49,7 +54,7 @@ export function QuestionCard({
             <button
               key={option.id}
               type="button"
-              onClick={() => onAnswer(index)}
+              onClick={(event) => handleOptionClick(index, event.currentTarget)}
               className={[
                 'option-card',
                 isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',

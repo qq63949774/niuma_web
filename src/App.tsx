@@ -53,6 +53,7 @@ function App() {
 
         {screen === 'quiz' ? (
           <QuestionCard
+            key={quizQuestions[currentQuestionIndex].id}
             question={quizQuestions[currentQuestionIndex]}
             currentQuestion={currentQuestionIndex + 1}
             totalQuestions={quizQuestions.length}
