@@ -261,4 +261,264 @@ export const quizQuestions: QuizQuestion[] = [
       },
     ],
   },
+  {
+    id: 'q11',
+    prompt: '早上第一杯咖啡喝下去以后，你的状态更像？',
+    options: [
+      {
+        id: 'q11a',
+        text: '续上命了，今天还能再扛两个需求。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q11b',
+        text: '人是醒了，焦虑也跟着一起醒了。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q11c',
+        text: '咖啡是苦的，班味更苦，所以我想说两句。',
+        scores: { rebel: 3, internal: 1 },
+      },
+      {
+        id: 'q11d',
+        text: '先拿咖啡在楼下绕一圈，假装自己在开战略会议。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q12',
+    prompt: '碰到“这个很简单，今天先出一下”的需求，你通常会？',
+    options: [
+      {
+        id: 'q12a',
+        text: '先接住，再悄悄给今晚的自己点一根电子蜡烛。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q12b',
+        text: '嘴上说可以，心里已经开始模拟翻车现场。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q12c',
+        text: '礼貌纠正：你说的“简单”和我理解的可能不是一种简单。',
+        scores: { rebel: 3, endure: 1 },
+      },
+      {
+        id: 'q12d',
+        text: '先做个能交差的版本，细节留给下一个平行宇宙。',
+        scores: { slack: 3, internal: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q13',
+    prompt: '当你发现会议其实可以发消息解决时，你会？',
+    options: [
+      {
+        id: 'q13a',
+        text: '继续参会，顺便记好所有待办。',
+        scores: { endure: 3 },
+      },
+      {
+        id: 'q13b',
+        text: '人坐着，灵魂已经开始替自己心疼工时。',
+        scores: { internal: 3, slack: 1 },
+      },
+      {
+        id: 'q13c',
+        text: '很想问一句：我们是来同步信息，还是同步坐姿？',
+        scores: { rebel: 3, internal: 1 },
+      },
+      {
+        id: 'q13d',
+        text: '静音开着，顺手把别的活也做了，主打资源复用。',
+        scores: { slack: 3, endure: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q14',
+    prompt: '老板说“你最近状态不够积极”，你最可能怎么理解？',
+    options: [
+      {
+        id: 'q14a',
+        text: '那我再顶一顶，至少不能让项目掉地上。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q14b',
+        text: '开始反思是不是连疲惫都表现得太明显了。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q14c',
+        text: '积极的定义是谁定的，工时还是情绪表演？',
+        scores: { rebel: 3, internal: 1 },
+      },
+      {
+        id: 'q14d',
+        text: '理解成一句企业黑话，然后继续稳定低耗运行。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q15',
+    prompt: '你的办公桌上，最像你灵魂外化的物件是什么？',
+    options: [
+      {
+        id: 'q15a',
+        text: '贴满标签的待办本，像一块永不下线的工地。',
+        scores: { endure: 3 },
+      },
+      {
+        id: 'q15b',
+        text: '那杯凉掉的咖啡，像我来不及处理的情绪。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q15c',
+        text: '一张写着“拒绝画饼”的便签，虽然没真的贴出来。',
+        scores: { rebel: 3 },
+      },
+      {
+        id: 'q15d',
+        text: '永远开着的耳机和一个看似忙碌的 Excel。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q16',
+    prompt: '下午三点犯困时，你一般靠什么续命？',
+    options: [
+      {
+        id: 'q16a',
+        text: '再来一杯浓咖啡，今天必须把自己摇醒。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q16b',
+        text: '喝咖啡时顺便想一想，人生是不是不该只有待办。',
+        scores: { internal: 3 },
+      },
+      {
+        id: 'q16c',
+        text: '借去接咖啡的路上，顺便和制度进行一场精神辩论。',
+        scores: { rebel: 3, internal: 1 },
+      },
+      {
+        id: 'q16d',
+        text: '下楼买咖啡顺便多走两圈，尽量把这段算进工时。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q17',
+    prompt: '如果项目群里有人说“大家辛苦一下”，你会自动翻译成？',
+    options: [
+      {
+        id: 'q17a',
+        text: '收到，今晚大概率又得靠意志力发电。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q17b',
+        text: '辛苦一下 = 焦虑一整晚，我很会做阅读理解。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q17c',
+        text: '这句话信息量太低，我想申请翻译器。',
+        scores: { rebel: 3, slack: 1 },
+      },
+      {
+        id: 'q17d',
+        text: '先回个表情包，具体辛苦程度明天再说。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q18',
+    prompt: '你怎么看“下班后团建一下，增强凝聚力”？',
+    options: [
+      {
+        id: 'q18a',
+        text: '能去就去，毕竟我还想维持体面社交。',
+        scores: { endure: 3, internal: 1 },
+      },
+      {
+        id: 'q18b',
+        text: '嘴上答应，心里已经替自己的周末默哀。',
+        scores: { internal: 3, endure: 1 },
+      },
+      {
+        id: 'q18c',
+        text: '凝聚力能不能先体现在准点下班上？',
+        scores: { rebel: 3, internal: 1 },
+      },
+      {
+        id: 'q18d',
+        text: '找个合理理由撤退，我和床的凝聚力更高。',
+        scores: { slack: 3, rebel: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q19',
+    prompt: '你理想中的工位饮品，最能代表哪种打工哲学？',
+    options: [
+      {
+        id: 'q19a',
+        text: '美式，苦一点无所谓，能顶住就行。',
+        scores: { endure: 3 },
+      },
+      {
+        id: 'q19b',
+        text: '拿铁，表面温和，内里全是复杂情绪。',
+        scores: { internal: 3 },
+      },
+      {
+        id: 'q19c',
+        text: '冰博克，贵点没事，至少别让我活得太标准化。',
+        scores: { rebel: 3, slack: 1 },
+      },
+      {
+        id: 'q19d',
+        text: '白水，低调、安全、方便随时离开工位透口气。',
+        scores: { slack: 3, internal: 1 },
+      },
+    ],
+  },
+  {
+    id: 'q20',
+    prompt: '如果让你给自己的打工日常起个片名，你选？',
+    options: [
+      {
+        id: 'q20a',
+        text: '《今天也把坑填上了》',
+        scores: { endure: 4 },
+      },
+      {
+        id: 'q20b',
+        text: '《我的情绪比咖啡先凉》',
+        scores: { internal: 4 },
+      },
+      {
+        id: 'q20c',
+        text: '《谁动了我的下班权》',
+        scores: { rebel: 4 },
+      },
+      {
+        id: 'q20d',
+        text: '《工位在这，灵魂在路上》',
+        scores: { slack: 4 },
+      },
+    ],
+  },
 ];

@@ -7,7 +7,7 @@ export function HomeScreen({ onStart }: HomeScreenProps) {
     <section className="panel">
       <div className="mb-6 flex items-center justify-between">
         <span className="chip">互联网嘴替版</span>
-        <span className="chip">10 道灵魂工位题</span>
+        <span className="chip">20 道灵魂工位题</span>
       </div>
 
       <div className="space-y-4">
@@ -16,7 +16,7 @@ export function HomeScreen({ onStart }: HomeScreenProps) {
           测测你是什么牛马
         </h1>
         <p className="max-w-[28ch] text-base leading-7 text-black/70">
-          打工这么多年，你到底是哪一类职场牛马？做完 10 道题，看看你的班味属于哪种流派。
+          打工这么多年，你到底是哪一类职场牛马？做完 20 道题，看看你的班味属于哪种流派。
         </p>
       </div>
 
