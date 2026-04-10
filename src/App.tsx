@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { HomeScreen } from './components/HomeScreen';
 import { QuestionCard } from './components/QuestionCard';
-import { QuestionTransitionCard } from './components/QuestionTransitionCard';
 import { ResultCard } from './components/ResultCard';
 import { quizQuestions } from './data/questions';
 import { getResultType, getScoreBoard } from './utils/quiz';
@@ -135,24 +134,19 @@ function App() {
         {screen === 'home' ? <HomeScreen onStart={startQuiz} /> : null}
 
         {screen === 'quiz' ? (
-          isQuestionVisible ? (
-            <QuestionCard
-              key={quizQuestions[currentQuestionIndex].id}
-              question={quizQuestions[currentQuestionIndex]}
-              currentQuestion={currentQuestionIndex + 1}
-              totalQuestions={quizQuestions.length}
-              selectedOption={answers[currentQuestionIndex]}
-              onAnswer={handleAnswer}
-              onPrevious={handlePrevious}
-              isLocked={isAdvancing || !isQuestionInteractive}
-              canGoPrevious={currentQuestionIndex > 0}
-            />
-          ) : (
-            <QuestionTransitionCard
-              upcomingQuestion={Math.min(currentQuestionIndex + 2, quizQuestions.length)}
-              totalQuestions={quizQuestions.length}
-            />
-          )
+          <QuestionCard
+            key={`${quizQuestions[currentQuestionIndex].id}-${isQuestionVisible ? 'ready' : 'transition'}`}
+            question={quizQuestions[currentQuestionIndex]}
+            currentQuestion={currentQuestionIndex + 1}
+            totalQuestions={quizQuestions.length}
+            selectedOption={answers[currentQuestionIndex]}
+            onAnswer={handleAnswer}
+            onPrevious={handlePrevious}
+            isLocked={isAdvancing || !isQuestionInteractive}
+            canGoPrevious={currentQuestionIndex > 0}
+            isTransitioning={!isQuestionVisible}
+            upcomingQuestion={Math.min(currentQuestionIndex + 2, quizQuestions.length)}
+          />
         ) : null}
 
         {screen === 'result' ? <ResultCard result={resultType} scoreBoard={scoreBoard} onRestart={restartQuiz} /> : null}
