@@ -8,6 +8,7 @@ interface QuestionCardProps {
   selectedOption: number | null;
   onAnswer: (optionIndex: number) => void;
   onPrevious: () => void;
+  isLocked: boolean;
   canGoPrevious: boolean;
 }
 
@@ -18,6 +19,7 @@ export function QuestionCard({
   selectedOption,
   onAnswer,
   onPrevious,
+  isLocked,
   canGoPrevious,
 }: QuestionCardProps) {
   const handleOptionClick = (optionIndex: number, button: HTMLButtonElement) => {
@@ -32,7 +34,7 @@ export function QuestionCard({
         <button
           type="button"
           onClick={onPrevious}
-          disabled={!canGoPrevious}
+          disabled={!canGoPrevious || isLocked}
           className="text-sm font-medium text-black/55 transition hover:text-black disabled:cursor-not-allowed disabled:text-black/25"
         >
           上一题
@@ -55,9 +57,11 @@ export function QuestionCard({
               key={option.id}
               type="button"
               onClick={(event) => handleOptionClick(index, event.currentTarget)}
+              disabled={isLocked}
               className={[
                 'option-card',
                 isSelected ? 'border-black bg-black text-white' : 'border-black/10 bg-white/70 text-ink',
+                isLocked ? 'cursor-wait' : '',
               ].join(' ')}
             >
               <div className="flex items-start gap-3">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HomeScreen } from './components/HomeScreen';
 import { QuestionCard } from './components/QuestionCard';
 import { ResultCard } from './components/ResultCard';
@@ -11,35 +11,67 @@ function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array.from({ length: quizQuestions.length }, () => null));
+  const [isAdvancing, setIsAdvancing] = useState(false);
+  const advanceTimerRef = useRef<number | null>(null);
+  const advanceLockRef = useRef(false);
 
   const scoreBoard = getScoreBoard(quizQuestions, answers);
   const resultType = getResultType(scoreBoard);
 
+  useEffect(() => {
+    return () => {
+      if (advanceTimerRef.current !== null) {
+        window.clearTimeout(advanceTimerRef.current);
+      }
+    };
+  }, []);
+
   const startQuiz = () => {
     setScreen('quiz');
     setCurrentQuestionIndex(0);
+    setIsAdvancing(false);
+    advanceLockRef.current = false;
   };
 
   const restartQuiz = () => {
     setAnswers(Array.from({ length: quizQuestions.length }, () => null));
     setCurrentQuestionIndex(0);
+    setIsAdvancing(false);
+    advanceLockRef.current = false;
     setScreen('quiz');
   };
 
   const handleAnswer = (optionIndex: number) => {
-    const nextAnswers = [...answers];
-    nextAnswers[currentQuestionIndex] = optionIndex;
-    setAnswers(nextAnswers);
-
-    if (currentQuestionIndex === quizQuestions.length - 1) {
-      setScreen('result');
+    if (advanceLockRef.current || isAdvancing) {
       return;
     }
 
-    setCurrentQuestionIndex((value) => value + 1);
+    advanceLockRef.current = true;
+
+    const nextAnswers = [...answers];
+    nextAnswers[currentQuestionIndex] = optionIndex;
+    setAnswers(nextAnswers);
+    setIsAdvancing(true);
+
+    advanceTimerRef.current = window.setTimeout(() => {
+      if (currentQuestionIndex === quizQuestions.length - 1) {
+        setScreen('result');
+        setIsAdvancing(false);
+        advanceLockRef.current = false;
+        return;
+      }
+
+      setCurrentQuestionIndex((value) => value + 1);
+      setIsAdvancing(false);
+      advanceLockRef.current = false;
+    }, 120);
   };
 
   const handlePrevious = () => {
+    if (advanceLockRef.current || isAdvancing) {
+      return;
+    }
+
     setCurrentQuestionIndex((value) => Math.max(0, value - 1));
   };
 
@@ -60,6 +92,7 @@ function App() {
             selectedOption={answers[currentQuestionIndex]}
             onAnswer={handleAnswer}
             onPrevious={handlePrevious}
+            isLocked={isAdvancing}
             canGoPrevious={currentQuestionIndex > 0}
           />
         ) : null}
