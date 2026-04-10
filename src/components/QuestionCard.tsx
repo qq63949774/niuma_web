@@ -70,7 +70,9 @@ export function QuestionCard({
   };
 
   return (
-    <section className="panel">
+    <section className="panel relative">
+      {isLocked ? <div className="absolute inset-0 z-10" aria-hidden="true" /> : null}
+
       <div className="mb-6 flex items-center justify-between">
         <span className="chip">第 {currentQuestion} 题</span>
         <button

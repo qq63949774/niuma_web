@@ -8,12 +8,15 @@ import { getResultType, getScoreBoard } from './utils/quiz';
 type Screen = 'home' | 'quiz' | 'result';
 
 function App() {
+  const selectionFeedbackDelay = 140;
+  const nextQuestionDelay = 380;
   const [screen, setScreen] = useState<Screen>('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array.from({ length: quizQuestions.length }, () => null));
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [isQuestionVisible, setIsQuestionVisible] = useState(true);
   const advanceTimerRef = useRef<number | null>(null);
+  const hideQuestionTimerRef = useRef<number | null>(null);
   const advanceLockRef = useRef(false);
 
   const scoreBoard = getScoreBoard(quizQuestions, answers);
@@ -23,6 +26,10 @@ function App() {
     return () => {
       if (advanceTimerRef.current !== null) {
         window.clearTimeout(advanceTimerRef.current);
+      }
+
+      if (hideQuestionTimerRef.current !== null) {
+        window.clearTimeout(hideQuestionTimerRef.current);
       }
     };
   }, []);
@@ -51,11 +58,22 @@ function App() {
 
     advanceLockRef.current = true;
 
+    if (advanceTimerRef.current !== null) {
+      window.clearTimeout(advanceTimerRef.current);
+    }
+
+    if (hideQuestionTimerRef.current !== null) {
+      window.clearTimeout(hideQuestionTimerRef.current);
+    }
+
     const nextAnswers = [...answers];
     nextAnswers[currentQuestionIndex] = optionIndex;
     setAnswers(nextAnswers);
     setIsAdvancing(true);
-    setIsQuestionVisible(false);
+
+    hideQuestionTimerRef.current = window.setTimeout(() => {
+      setIsQuestionVisible(false);
+    }, selectionFeedbackDelay);
 
     advanceTimerRef.current = window.setTimeout(() => {
       if (currentQuestionIndex === quizQuestions.length - 1) {
@@ -63,16 +81,18 @@ function App() {
         setIsAdvancing(false);
         setIsQuestionVisible(true);
         advanceLockRef.current = false;
+        hideQuestionTimerRef.current = null;
+        advanceTimerRef.current = null;
         return;
       }
 
       setCurrentQuestionIndex((value) => value + 1);
-      window.setTimeout(() => {
-        setIsQuestionVisible(true);
-        setIsAdvancing(false);
-        advanceLockRef.current = false;
-      }, 50);
-    }, 90);
+      setIsQuestionVisible(true);
+      setIsAdvancing(false);
+      advanceLockRef.current = false;
+      hideQuestionTimerRef.current = null;
+      advanceTimerRef.current = null;
+    }, nextQuestionDelay);
   };
 
   const handlePrevious = () => {
