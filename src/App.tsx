@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { HomeScreen } from './components/HomeScreen';
 import { QuestionCard } from './components/QuestionCard';
+import { QuestionTransitionCard } from './components/QuestionTransitionCard';
 import { ResultCard } from './components/ResultCard';
 import { quizQuestions } from './data/questions';
 import { getResultType, getScoreBoard } from './utils/quiz';
@@ -8,9 +9,9 @@ import { getResultType, getScoreBoard } from './utils/quiz';
 type Screen = 'home' | 'quiz' | 'result';
 
 function App() {
-  const selectionFeedbackDelay = 140;
-  const nextQuestionDelay = 520;
-  const questionRevealDelay = 220;
+  const selectionFeedbackDelay = 120;
+  const nextQuestionDelay = 340;
+  const questionRevealDelay = 140;
   const [screen, setScreen] = useState<Screen>('home');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(() => Array.from({ length: quizQuestions.length }, () => null));
@@ -147,7 +148,10 @@ function App() {
               canGoPrevious={currentQuestionIndex > 0}
             />
           ) : (
-            <section className="panel min-h-[540px] sm:min-h-[520px]" aria-hidden="true" />
+            <QuestionTransitionCard
+              upcomingQuestion={Math.min(currentQuestionIndex + 2, quizQuestions.length)}
+              totalQuestions={quizQuestions.length}
+            />
           )
         ) : null}
 
